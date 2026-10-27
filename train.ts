@@ -1,5 +1,21 @@
 //MIT Tasks
 
+//Z - TASK;
+
+// function sumEvens(arr: number[]): number {
+//   let sum = 0;
+
+//   for (const num of arr) {
+//     if (num % 2 === 0) {
+//       sum += num;
+//     }
+//   }
+
+//   return sum;
+// }
+
+// console.log(sumEvens([1, 2, 3]));
+
 //Y-Task
 
 // function findIntersection<T>(arr1: T[], arr2: T[]): T[] {
