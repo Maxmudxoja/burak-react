@@ -64,7 +64,7 @@ export default function HomeNavbar() {
         <Stack className={"header-frame"}>
           <Stack className={"detail"}>
             <Box className={"head-main-txt"}>
-              World's Most Delicious Cousine
+              World's Most Delicious Cuisine
             </Box>
             <Box className={"wel-txt"}>The Choice, not just a choice</Box>
             <Box className={"service-txt"}>24 hours service</Box>
