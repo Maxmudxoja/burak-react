@@ -1,0 +1,421 @@
+/** PRODUCTS PAGE **/
+
+.products-page {
+  width: 100%;
+  background: #f8f8ff;
+}
+
+/** MENU **/
+
+.products-page .products {
+  width: 100%;
+  padding-top: 83px;
+}
+
+/* Title + Search */
+
+.products-page .products .avatar-big-box {
+  width: 100%;
+  height: 46px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.products-page .products .top-title {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 46px;
+  color: #343434;
+}
+
+.products-page .products .single-search {
+  position: absolute;
+  right: 16px;
+  width: 366px;
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 18.5px;
+  background: #fffcfc;
+  box-shadow: 0px 4px 4px rgba(212, 212, 212, 0.25);
+}
+
+.products-page .products .single-search-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 17px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  color: #4a4a4a;
+}
+
+.products-page .products .single-search-input::placeholder {
+  color: #4a4a4a;
+}
+
+.products-page .products .single-button-search {
+  width: 106px;
+  min-width: 106px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 18.5px;
+  box-shadow: none;
+  background: #343434;
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  color: #d7b586;
+}
+
+.products-page .products .single-button-search .MuiButton-endIcon {
+  margin-left: 2px;
+}
+
+/* Sort filters */
+
+.products-page .products .dishes-filter-section {
+  width: 100%;
+  margin-top: 62px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.products-page .products .dishes-filter-box {
+  margin-right: 56px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.products-page .products .dishes-filter-box .order {
+  width: 70px;
+  min-width: 70px;
+  height: 36px;
+  border-radius: 8px;
+  box-shadow: none;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Categories + Products */
+
+.products-page .products .list-category-section {
+  width: 100%;
+  margin-top: 41px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.products-page .products .product-category {
+  width: 36px;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.products-page .products .product-category .MuiButton-root {
+  width: 36px;
+  min-width: 36px;
+  padding: 10px 0;
+  border-radius: 8px;
+  box-shadow: none;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.products-page .products .product-wrapper {
+  width: 1194px;
+  margin-left: 22px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 35px 34px;
+}
+
+.products-page .products .product-card {
+  width: 273px;
+  height: 361px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.products-page .products .product-img {
+  width: 273px;
+  height: 275px;
+  position: relative;
+  background-color: #c4c4c4;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.products-page .products .product-sale {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 90px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background: #ff9200;
+  box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #ffffff;
+}
+
+.products-page .products .shop-btn {
+  position: absolute;
+  left: 105px;
+  bottom: 12px;
+  width: 64px;
+  min-width: 64px;
+  height: 46px;
+  border-radius: 10px;
+  border: 1px solid #e3c08d;
+  background: rgba(187, 47, 200, 0.78);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.products-page .products .shop-btn img {
+  width: 24px;
+  height: 20px;
+  display: flex;
+}
+
+.products-page .products .view-btn {
+  position: absolute;
+  right: 37px;
+  bottom: 12px;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.products-page .products .view-btn .MuiBadge-badge {
+  top: -4px;
+  right: -6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 9px;
+}
+
+.products-page .products .product-card:hover .shop-btn,
+.products-page .products .product-card:hover .view-btn {
+  opacity: 1;
+}
+
+.products-page .products .shop-btn:hover {
+  background: rgba(187, 47, 200, 0.95);
+}
+
+.products-page .products .view-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.products-page .products .product-desc {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-page .products .product-title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  color: #343434;
+}
+
+.products-page .products .product-price {
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  color: #e3c08d;
+}
+
+.products-page .products .product-price svg {
+  font-size: 32px;
+  color: #f2b01e;
+}
+
+.products-page .products .product-wrapper .no-data {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 34px;
+  color: #e3c08d;
+}
+
+/* Pagination */
+
+.products-page .products .pagination-section {
+  margin-top: 11px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.products-page .products .pagination-section .MuiPaginationItem-root {
+  font-family: "Roboto";
+  font-size: 14px;
+  color: #1c2a4a;
+}
+
+.products-page
+  .products
+  .pagination-section
+  .MuiPaginationItem-root.Mui-selected {
+  background: #c40000;
+  color: #ffffff;
+}
+
+.products-page
+  .products
+  .pagination-section
+  .MuiPaginationItem-root.Mui-selected:hover {
+  background: #a30000;
+}
+
+/** FAMILY BRANDS **/
+
+.products-page .brands-logo {
+  width: 100%;
+  height: 630px;
+  margin-top: 67px;
+  display: flex;
+  background: #0d1518;
+}
+
+.products-page .brands-logo .family-brands {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-page .brands-logo .category-title {
+  margin-top: 84px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 46px;
+  color: #e3c08d;
+}
+
+.products-page .brands-logo .brand-list {
+  width: 100%;
+  margin-top: 58px;
+  padding: 0 1px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.products-page .brands-logo .review-box {
+  width: 259px;
+  height: 350px;
+  padding: 10px;
+  display: flex;
+  border-radius: 20px;
+  background: #0d1518;
+  box-shadow: 0px 0px 22px #e4d4d4;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.products-page .brands-logo .review-box:hover {
+  transform: translateY(-6px);
+}
+
+.products-page .brands-logo .review-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/** ADDRESS **/
+
+.products-page .address {
+  width: 100%;
+  padding: 47px 0 89px 0;
+}
+
+.products-page .address .address-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.products-page .address .title {
+  font-family: "Roboto Serif";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 53px;
+  color: #343434;
+}
+
+.products-page .address .address-map {
+  width: 100%;
+  height: 567px;
+  margin-top: 81px;
+  border: none;
+}
