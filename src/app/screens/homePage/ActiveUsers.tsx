@@ -1,9 +1,10 @@
 import React from "react";
 import { Box, Container, Stack } from "@mui/material";
 import Card from "@mui/joy/Card";
-import { CssVarsProvider, Typography } from "@mui/joy";
 import CardOverflow from "@mui/joy/CardOverflow";
 import AspectRatio from "@mui/joy/AspectRatio";
+import Typography from "@mui/joy/Typography";
+import { CssVarsProvider } from "@mui/joy/styles";
 
 const activeUsers = [
   { memberNick: "Martin", memberImage: "/img/martin.webp" },
@@ -26,7 +27,7 @@ export default function ActiveUsers() {
                     <Card key={index} variant="outlined" className={"card"}>
                       <CardOverflow>
                         <AspectRatio ratio="10/9">
-                          <img src={ele.memberImage} alt="" />
+                          <img src={ele.memberImage} alt={ele.memberNick} />
                         </AspectRatio>
                       </CardOverflow>
                       <CardOverflow>
