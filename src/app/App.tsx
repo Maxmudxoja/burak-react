@@ -2,7 +2,7 @@ import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
-import OrdersPage from "./screens/ordersPage/intex";
+import OrdersPage from "./screens/ordersPage";
 import ProductsPage from "./screens/productsPage";
 import UserPage from "./screens/userPage";
 import HomeNavbar from "./components/headers/HomeNavbar";
