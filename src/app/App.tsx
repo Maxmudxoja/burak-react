@@ -16,7 +16,6 @@ import Test from "./screens/Test";
 
 function App() {
   const location = useLocation();
-  console.log("locaion: ", location);
 
   return (
     <>
