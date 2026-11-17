@@ -1,3 +1,4 @@
+// typography.ts — h1..h6 sarlavhalar uchun shrift o'lchami/qalinligi. theme'ga ulanadi.
 export default {
 	h1: {
 		fontWeight: 500,

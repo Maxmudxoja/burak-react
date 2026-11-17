@@ -16,6 +16,15 @@ import { retrievePopularDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
 
+/**
+ * ============================================================
+ *  PopularDishes.tsx — "POPULAR DISHES" BO'LIMI (bosh sahifa)
+ * ============================================================
+ * Eng ko'p ko'rilgan (productViews) 4 ta DISH ni katta rasmli kartalarda ko'rsatadi.
+ * Ma'lumot manbai: Redux -> state.homePage.popularDishes
+ *   (HomePage useEffect'da ProductService.getProducts({order:"productViews", ...}) bilan yozilgan).
+ */
+
 /** REDUX SLICE & SELECTOR **/
 const popularDishesRetriever = createSelector(
   retrievePopularDishes,
@@ -23,6 +32,7 @@ const popularDishesRetriever = createSelector(
 );
 
 export default function PopularDishes() {
+  // Redux'dan o'qish. Boshida [] (bo'sh), backend javob bergach to'ladi va qayta render bo'ladi.
   const { popularDishes } = useSelector(popularDishesRetriever);
 
   //console.log("popularDishes: ", popularDishes);
@@ -34,6 +44,7 @@ export default function PopularDishes() {
           <Stack className="cards-frame">
             {popularDishes.length !== 0 ? (
               popularDishes.map((product: Product) => {
+                // Birinchi rasmni olamiz; rasm backend serverda turadi
                 const imagePath = `${serverApi}/${product.productImages[0]}`;
                 return (
                   <CssVarsProvider key={product._id}>

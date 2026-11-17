@@ -1,3 +1,8 @@
+/**
+ * userPage/index.tsx — "MY PAGE" (/member-page).
+ * Chapda: Settings (profilni tahrirlash formasi). O'ngda: foydalanuvchi kartasi (rasm, ism, manzil, tavsif).
+ * HOZIRCHA STATIK ("Martin"); login qo'shilgach authMember ma'lumotlari ko'rsatiladi.
+ */
 import { Box, Container, Stack } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";

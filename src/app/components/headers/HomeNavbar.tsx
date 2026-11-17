@@ -1,3 +1,14 @@
+/**
+ * ============================================================
+ *  HomeNavbar.tsx — BOSH SAHIFA ("/") UCHUN NAVBAR + KATTA HEADER
+ * ============================================================
+ * App.tsx: pathname === "/" bo'lsa shu chiqadi, aks holda OtherNavbar.
+ * Tarkibi: logo, menyu linklari, Basket (savat), Login tugmasi va
+ * pastida katta banner ("World's Most Delicious Cuisine", SIGN UP).
+ *
+ * authMember — hozircha null (login hali yozilmagan). Login qilingach bu yerda
+ * foydalanuvchi obyekti bo'ladi va "Orders", "My Page" linklari + avatar ko'rinadi.
+ */
 import { Button, Box, Container, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -6,10 +17,17 @@ import Basket from "./Basket";
 export default function HomeNavbar() {
   const authMember = null;
 
+  // --- O'RGANISH UCHUN DEMO (useState + useEffect lifecycle) ---
+  // count — "{count} hours service" matnida ko'rinadi.
   const [count, setCount] = useState<number>(0);
 
+  // value — SIGN UP bosilganda almashadi (true <-> false)
   const [value, setvalue] = useState<boolean>(true);
 
+  // useEffect [value] ga bog'langan: birinchi render'da VA har safar value o'zgarganda ishlaydi.
+  //  - ichki qism   = componentDidMount / componentDidUpdate
+  //  - return () => = cleanup, keyingi effect'dan oldin yoki komponent o'chganda (componentWillUnmount)
+  // Natija: SIGN UP har bosilganda count +1 bo'ladi.
   useEffect(() => {
     console.log("componentDidMount");
     setCount(count + 1);
@@ -34,6 +52,8 @@ export default function HomeNavbar() {
             </NavLink>
           </Box>
           <Stack className="links">
+            {/* NavLink — sahifani qayta yuklamasdan URL'ni o'zgartiradi.
+                activeClassName — hozirgi sahifa linkiga "underline" klassini qo'shadi (tagiga chiziq) */}
             <Box className={"hover-line"}>
               <NavLink to="/" activeClassName={"underline"}>
                 Home

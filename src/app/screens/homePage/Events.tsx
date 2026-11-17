@@ -1,8 +1,14 @@
+/**
+ * Events.tsx — bosh sahifadagi "Events" slider (karusel).
+ * Ma'lumot: lib/data/plans.ts (statik massiv, backend emas).
+ * Swiper kutubxonasi: avtomatik aylanadi (autoplay), strelkalar (navigation), nuqtalar (pagination).
+ */
 import { Box, Stack } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import { plans } from "../../../lib/data/plans";
 
+// Swiper modullarini global yoqamiz: avtomatik aylanish, strelkalar, nuqtalar.
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 export default function Events() {

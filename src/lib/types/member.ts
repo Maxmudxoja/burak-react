@@ -1,3 +1,11 @@
+/**
+ * member.ts — foydalanuvchi bilan bog'liq TypeScript interfeyslari (backend modeliga mos).
+ *   Member            — backenddan keladigan to'liq foydalanuvchi obyekti
+ *   MemberInput       — ro'yxatdan o'tish (signup) uchun yuboriladigan ma'lumot
+ *   LoginInput        — login uchun (nick + parol)
+ *   MemberUpdateInput — profilni yangilash uchun (hammasi ixtiyoriy "?")
+ * "?" belgisi — maydon ixtiyoriy (bo'lmasligi ham mumkin).
+ */
 import { MemberStatus, MemberType } from "../enums/member_enum";
 
 export interface Member {

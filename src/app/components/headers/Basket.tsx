@@ -1,3 +1,12 @@
+/**
+ * ============================================================
+ *  Basket.tsx — SAVAT (navbar'dagi savat ikonkasi + ochiladigan menyu)
+ * ============================================================
+ * Ikonkaga bosilganda MUI <Menu> ochiladi va ichida savatdagi mahsulotlar ko'rinadi.
+ * HOZIRCHA STATIK: "Kebab $10", "Total $100", badge=3 — namuna uchun yozilgan.
+ * Keyinchalik savat ma'lumoti (cartItems) state/localStorage'dan olinadi,
+ * "+", "-", "x" va "Order" tugmalariga handler'lar ulanadi.
+ */
 import React from "react";
 import { Box, Button, Stack } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -11,6 +20,8 @@ export default function Basket() {
   const authMember = null;
   const history = useHistory();
 
+  // anchorEl — menyu qaysi elementga "yopishib" ochilishini bildiradi (savat tugmasi).
+  // null = menyu yopiq, element = menyu ochiq. open — shundan hisoblanadi.
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 

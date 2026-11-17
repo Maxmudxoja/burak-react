@@ -1,3 +1,9 @@
+/**
+ * Settings.tsx — profil ma'lumotlarini tahrirlash formasi (rasm, nick, telefon, manzil, tavsif).
+ * Inputlarning `name` atributlari MemberUpdateInput (lib/types/member.ts) maydonlariga mos.
+ * HOZIRCHA STATIK: value qattiq yozilgan va onChange yo'q -> input'ga yozib bo'lmaydi.
+ * Keyinchalik: useState + onChange + "Save" da MemberService.updateMember() chaqiriladi.
+ */
 import { Box } from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import Button from "@mui/material/Button";

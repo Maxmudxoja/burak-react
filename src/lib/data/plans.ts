@@ -1,3 +1,4 @@
+// plans.ts — bosh sahifadagi Events slider uchun tadbirlar ro'yxati (statik ma'lumot).
 export const plans = [
 	{
 		title: 'Hot Discount Days',

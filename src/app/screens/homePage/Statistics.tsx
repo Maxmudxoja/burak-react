@@ -1,3 +1,8 @@
+/**
+ * Statistics.tsx — bosh sahifadagi raqamlar paneli (12 Restaurants, 8 Experience, 50+ Menu, 200+ Clients).
+ * STATIK: backend yoki Redux ishlatmaydi, raqamlar to'g'ridan-to'g'ri yozilgan.
+ * Orasidagi vertikal chiziqlar — umumiy Divider komponenti (components/divider).
+ */
 import React from "react";
 import { Box, Container, Stack } from "@mui/material";
 import Divider from "../../components/divider";

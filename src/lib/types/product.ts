@@ -1,3 +1,9 @@
+/**
+ * product.ts — mahsulot type'lari.
+ *   Product        — backenddan keladigan mahsulot obyekti
+ *   ProductInquiry — mahsulotlarni so'rash shartlari (ProductService.getProducts ga beriladi):
+ *                    order (saralash), page, limit, productCollection?, search?
+ */
 import {
   ProductCollection,
   ProductSize,

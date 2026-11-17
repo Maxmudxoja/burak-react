@@ -1,3 +1,14 @@
+/**
+ * ============================================================
+ *  Products.tsx — MAHSULOTLAR RO'YXATI (/products)
+ * ============================================================
+ * Bo'limlar: sarlavha + qidiruv, saralash (New/Price/Views), kategoriyalar
+ * (Dish/Salad/...), mahsulot kartalari, pagination, "Family Brands", xarita.
+ *
+ * HOZIRCHA STATIK: `products` va `brands` massivlari shu faylda qo'lda yozilgan.
+ * Keyingi qadam (HomePage kabi): ProductService.getProducts() -> Redux slice -> useSelector.
+ * Qidiruv, saralash va kategoriya tugmalari hali hech narsa qilmaydi.
+ */
 import React, { useState } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";

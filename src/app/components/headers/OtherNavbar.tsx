@@ -1,3 +1,8 @@
+/**
+ * OtherNavbar.tsx — bosh sahifadan TASHQARI barcha sahifalar uchun navbar.
+ * HomeNavbar bilan bir xil menyu, lekin katta header/banner yo'q (ixcham).
+ * authMember — hozircha null; login bo'lsa Orders va My Page linklari chiqadi.
+ */
 import { Container, Stack, Box, Button } from "@mui/material";
 import Basket from "./Basket";
 import { NavLink } from "react-router-dom";

@@ -1,3 +1,9 @@
+/**
+ * PausedOrders — "PAUSED ORDERS" tabi (TabPanel value="1").
+ * To'lanmagan buyurtmalar: Cancel va Payment tugmalari bilan.
+ * HOZIRCHA STATIK: [1, 2].map — 2 ta soxta buyurtma, ichida [1, 2, 3] — 3 ta soxta mahsulot.
+ * `false && (...)` — ro'yxat bo'sh bo'lganda chiqadigan "bo'sh" rasm (hozir o'chiq).
+ */
 import React from "react";
 import { Box, Stack } from "@mui/material";
 import Button from "@mui/material/Button";

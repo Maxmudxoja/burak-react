@@ -1,3 +1,8 @@
+/**
+ * ChosenProduct.tsx — bitta mahsulot sahifasi (/products/:productId).
+ * Chapda rasmlar slider (Swiper), o'ngda nomi, reyting, ko'rishlar, tavsif, narx, "Add To Basket".
+ * HOZIRCHA STATIK: keyinchalik useParams() bilan productId olinib, backenddan mahsulot yuklanadi.
+ */
 import React from "react";
 import { Container, Stack, Box } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";

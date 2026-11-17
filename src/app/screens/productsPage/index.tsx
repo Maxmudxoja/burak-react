@@ -1,3 +1,13 @@
+/**
+ * ============================================================
+ *  productsPage/index.tsx — "/products" SAHIFASI (ICHKI ROUTING)
+ * ============================================================
+ * Bu sahifaning o'zida ham kichik router bor (nested routes):
+ *   /products            -> Products       (barcha mahsulotlar ro'yxati)
+ *   /products/:productId -> ChosenProduct  (bitta mahsulot tafsiloti)
+ * useRouteMatch() — hozirgi route'ning path'ini ("/products") beradi,
+ * shunda "/products" so'zini qo'lda qayta yozmaymiz.
+ */
 import React from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import ChosenProduct from "./ChosenProduct";
@@ -9,6 +19,7 @@ export default function ProductsPage() {
 
   return (
     <div className={"products-page"}>
+      {/* Aniqroq route (":productId" bilan) birinchi turadi, aks holda "/products" hammasini ushlab qoladi */}
       <Switch>
         <Route path={`${products.path}/:productId`}>
           <ChosenProduct />

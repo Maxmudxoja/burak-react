@@ -12,12 +12,22 @@ import { retrieveTopUsers } from "./selector";
 import { serverApi } from "../../../lib/config";
 import { Member } from "../../../lib/types/member";
 
+/**
+ * ============================================================
+ *  ActiveUsers.tsx — "ACTIVE USERS" BO'LIMI (bosh sahifa)
+ * ============================================================
+ * Eng faol foydalanuvchilarning rasmi va nickname'ini ko'rsatadi.
+ * Ma'lumot manbai: Redux -> state.homePage.topUsers
+ *   (HomePage useEffect'da MemberService.getTopUsers() bilan yozilgan).
+ */
+
 /** REDUX SLICE & SELECTOR **/
 const topUsersRetriever = createSelector(retrieveTopUsers, (topUsers) => ({
   topUsers,
 }));
 
 export default function ActiveUsers() {
+  // Redux'dan top foydalanuvchilarni o'qiymiz
   const { topUsers } = useSelector(topUsersRetriever);
   return (
     <div className={"active-users-frame"}>
@@ -28,6 +38,7 @@ export default function ActiveUsers() {
             <CssVarsProvider>
               {topUsers.length !== 0 ? (
                 topUsers.map((member: Member) => {
+                  // Foydalanuvchi rasm yuklagan bo'lsa — serverdagi rasm, aks holda default ikonka
                   const imagePath = member.memberImage
                     ? `${serverApi}/${member.memberImage}`
                     : "/icons/default-user.svg";
