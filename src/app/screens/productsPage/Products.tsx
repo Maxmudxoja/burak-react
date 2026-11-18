@@ -9,7 +9,7 @@
  * Keyingi qadam (HomePage kabi): ProductService.getProducts() -> Redux slice -> useSelector.
  * Qidiruv, saralash va kategoriya tugmalari hali hech narsa qilmaydi.
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -20,12 +20,15 @@ import PaginationItem from "@mui/material/PaginationItem";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setProducts } from "./slice";
 import { createSelector } from "reselect";
 import { Product } from "../../../lib/types/product";
 import { retrieveProduct } from "./selector";
+import ProductService from "../../services/ProductServices";
+import { ProductCollection } from "../../../lib/enums/product_enum";
+import { serverApi } from "../../../lib/config";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -36,24 +39,6 @@ const productRetriever = createSelector(retrieveProduct, (products) => ({
   products,
 }));
 
-const products = [
-  { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Lavash", imagePath: "/img/lavash.webp" },
-  { productName: "Lavash", imagePath: "/img/lavash.webp" },
-  { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
-];
-
-const brands = [
-  { brandName: "Gurme", imagePath: "/img/gurme.webp" },
-  { brandName: "Seafood", imagePath: "/img/seafood.webp" },
-  { brandName: "Sweets", imagePath: "/img/sweets.webp" },
-  { brandName: "Doner", imagePath: "/img/doner.webp" },
-];
-
 export default function Products() {
   const [page, setPage] = useState<number>(1);
 
@@ -61,6 +46,24 @@ export default function Products() {
   const paginationHandler = (e: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
+
+  const { setProducts } = actionDispatch(useDispatch());
+
+  const { products } = useSelector(productRetriever);
+
+  useEffect(() => {
+    const product = new ProductService();
+    product
+      .getProducts({
+        page: 1,
+        limit: 8,
+        order: "createdAt",
+        productCollection: ProductCollection.DISH,
+        search: "",
+      })
+      .then((data) => setProducts(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className={"products"}>
@@ -135,20 +138,33 @@ export default function Products() {
 
             <Stack className={"product-wrapper"}>
               {products.length !== 0 ? (
-                products.map((product, index) => {
+                products.map((product: Product) => {
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.DRINK
+                      ? product.productVolume + " litr"
+                      : product.productSize + " size";
                   return (
-                    <Stack key={index} className={"product-card"}>
+                    <Stack key={product._id} className={"product-card"}>
                       <Stack
                         className={"product-img"}
-                        sx={{ backgroundImage: `url(${product.imagePath})` }}
+                        sx={{ backgroundImage: `url(${imagePath})` }}
                       >
-                        <div className={"product-sale"}>Large size</div>
+                        <div className={"product-sale"}> {sizeVolume}</div>
                         <Button className={"shop-btn"}>
                           <img src={"/icons/shopping-cart.svg"} alt={"cart"} />
                         </Button>
                         <Button className={"view-btn"}>
-                          <Badge badgeContent={20} color={"secondary"}>
-                            <RemoveRedEyeIcon sx={{ color: "white" }} />
+                          <Badge
+                            badgeContent={product.productViews}
+                            color={"secondary"}
+                          >
+                            <RemoveRedEyeIcon
+                              sx={{
+                                color:
+                                  product.productViews === 0 ? "gray" : "white",
+                              }}
+                            />
                           </Badge>
                         </Button>
                       </Stack>
@@ -158,7 +174,7 @@ export default function Products() {
                         </span>
                         <div className={"product-price"}>
                           <MonetizationOnIcon />
-                          {15}
+                          {product.productPrice}
                         </div>
                       </Box>
                     </Stack>
@@ -189,22 +205,6 @@ export default function Products() {
           </Stack>
         </Stack>
       </Container>
-
-      {/* FAMILY BRANDS */}
-      <div className={"brands-logo"}>
-        <Container className={"family-brands"}>
-          <Box className={"category-title"}>Our Family Brands</Box>
-          <Stack className={"brand-list"}>
-            {brands.map((brand, index) => {
-              return (
-                <Box key={index} className={"review-box"}>
-                  <img src={brand.imagePath} alt={brand.brandName} />
-                </Box>
-              );
-            })}
-          </Stack>
-        </Container>
-      </div>
 
       {/* ADDRESS */}
       <div className={"address"}>
