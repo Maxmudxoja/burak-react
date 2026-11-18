@@ -16,6 +16,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import HomePageReducer from "./screens/homePage/slice";
 import reduxLogger from "redux-logger";
+import ProductPageReducer from "./screens/productsPage/slice";
 
 export const store = configureStore({
   // middleware — har bir dispatch'dan oldin/keyin ishlaydigan qatlam.
@@ -26,6 +27,7 @@ export const store = configureStore({
   // reducer — state'ning qaysi kaliti qaysi reducer bilan boshqarilishi
   reducer: {
     homePage: HomePageReducer,
+    productsPage: ProductPageReducer,
   },
 });
 
