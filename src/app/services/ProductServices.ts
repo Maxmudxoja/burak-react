@@ -50,6 +50,18 @@ class ProductService {
       throw err; // xatoni chaqirgan joyga uzatamiz (u .catch() da ushlaydi)
     }
   }
+
+  public async getProduct(productId: string): Promise<Product> {
+    try {
+      const url = `${this.path}/product/${productId}`;
+      const result = await axios.get(url, { withCredentials: true });
+      console.log("getProduct: ", result);
+      return result.data;
+    } catch (err) {
+      console.log("Error, getProduct: ", err);
+      throw err; // xatoni chaqirgan joyga uzatamiz (u .catch() da ushlaydi)
+    }
+  }
 }
 
 export default ProductService;
