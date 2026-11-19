@@ -32,6 +32,10 @@ class MemberService {
     }
   }
 
+  /**
+   * Restoran (MemberType.RESTAURANT) ma'lumotini oladi — ChosenProduct'da nomi va telefoni chiqadi.
+   * GET {serverApi}/member/restaurant  ->  Member
+   */
   public async getRestaurant(): Promise<Member> {
     try {
       const url = this.path + "/member/restaurant";

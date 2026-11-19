@@ -51,6 +51,12 @@ class ProductService {
     }
   }
 
+  /**
+   * BITTA mahsulotni id bo'yicha oladi (ChosenProduct sahifasi uchun).
+   * GET {serverApi}/product/:productId  ->  Product
+   * withCredentials: true — brauzer cookie'larni ham yuboradi. Backend login bo'lgan
+   * foydalanuvchini taniydi (masalan, ko'rishlar sonini (productViews) har user uchun 1 marta oshirish uchun).
+   */
   public async getProduct(productId: string): Promise<Product> {
     try {
       const url = `${this.path}/product/${productId}`;

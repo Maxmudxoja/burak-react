@@ -6,7 +6,8 @@
  * Har bir sahifa o'zining "slice" (bo'lak) iga ega. Hozircha faqat homePage bor.
  *
  *   state = {
- *     homePage: { popularDishes: [], newDishes: [], topUsers: [] }
+ *     homePage:     { popularDishes: [], newDishes: [], topUsers: [] },
+ *     productsPage: { restaurant: null, chosenProduct: null, products: [] }
  *   }
  *
  * Yangi sahifa uchun state kerak bo'lsa: shu sahifaning slice.ts ini yozib,

@@ -22,6 +22,7 @@ export interface HomePageState {
 }
 
 /** PRODUCT PAGE*/
+// `Member | null` — "yoki Member obyekti, yoki null (hali yuklanmagan)".
 
 export interface ProductsPageState {
   restaurant: Member | null;

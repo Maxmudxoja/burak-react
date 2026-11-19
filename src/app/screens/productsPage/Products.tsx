@@ -5,9 +5,20 @@
  * Bo'limlar: sarlavha + qidiruv, saralash (New/Price/Views), kategoriyalar
  * (Dish/Salad/...), mahsulot kartalari, pagination, "Family Brands", xarita.
  *
- * HOZIRCHA STATIK: `products` va `brands` massivlari shu faylda qo'lda yozilgan.
- * Keyingi qadam (HomePage kabi): ProductService.getProducts() -> Redux slice -> useSelector.
- * Qidiruv, saralash va kategoriya tugmalari hali hech narsa qilmaydi.
+ * BACKENDGA ULANGAN. Asosiy g'oya — HAMMA NARSA BITTA `productSearch` STATE ORQALI:
+ *
+ *   Foydalanuvchi tugma bosadi (Dish / Price / 2-sahifa / Search)
+ *        ▼  HANDLER
+ *   productSearch o'zgaradi  { page, limit, order, productCollection, search }
+ *        ▼  useEffect([productSearch]) — productSearch o'zgarganini "sezadi"
+ *   ProductService.getProducts(productSearch)  ──►  BACKEND
+ *        ▼
+ *   dispatch(setProducts(data))  ->  state.productsPage.products
+ *        ▼  useSelector
+ *   products.map(...) -> kartalar qayta chiziladi
+ *
+ * Ya'ni handler'lar backendga O'ZI bormaydi — faqat productSearch'ni o'zgartiradi,
+ * qolganini useEffect qiladi.
  */
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Box, Button, Container, Stack } from "@mui/material";
@@ -32,21 +43,27 @@ import { serverApi } from "../../../lib/config";
 import { useHistory } from "react-router-dom";
 
 /** REDUX SLICE & SELECTOR **/
+// YOZISH uchun: setProducts(data) -> dispatch(setProducts(data)) -> state.productsPage.products
 const actionDispatch = (dispatch: Dispatch) => ({
   setProducts: (data: Product[]) => dispatch(setProducts(data)),
 });
 
+// O'QISH uchun: state.productsPage.products ni { products } ko'rinishida beradi
 const productRetriever = createSelector(retrieveProduct, (products) => ({
   products,
 }));
 
 export default function Products() {
+  // ESKI qoldiq: endi sahifa raqami productSearch.page da saqlanadi, bu state ishlatilmaydi.
   const [page, setPage] = useState<number>(1);
 
   const { setProducts } = actionDispatch(useDispatch());
 
+  // Redux'dagi mahsulotlar ro'yxati (o'zgarsa — komponent qayta render bo'ladi)
   const { products } = useSelector(productRetriever);
 
+  // ENG MUHIM STATE: backendga qanday so'rov yuborishni belgilaydi.
+  // Boshlang'ich holat: 1-sahifa, 8 ta, eng yangilari, faqat DISH, qidiruvsiz.
   const [productSearch, setProductSearch] = useState<ProductInquiry>({
     page: 1,
     limit: 8,
@@ -55,17 +72,26 @@ export default function Products() {
     search: "",
   });
 
+  // Input'ga yozilayotgan matn. Har harfda o'zgaradi, LEKIN backendga darhol bormaydi —
+  // faqat Search/Enter bosilganda productSearch.search ga ko'chiriladi.
   const [searchText, setSearchText] = useState<string>("");
+  // history — kod orqali boshqa sahifaga o'tish uchun (history.push("/url"))
   const history = useHistory();
 
+  // EFFECT 1: productSearch har o'zgarganda backenddan mahsulotlarni qayta oladi.
+  // [productSearch] — "dependency": shu qiymat o'zgarsa effect qayta ishlaydi.
   useEffect(() => {
     const product = new ProductService();
     product
       .getProducts(productSearch)
-      .then((data) => setProducts(data))
+      .then((data) => setProducts(data)) // -> Redux
       .catch((err) => console.log(err));
   }, [productSearch]);
 
+  // EFFECT 2: foydalanuvchi qidiruv maydonini TOZALASA (searchText === ""),
+  // qidiruv filtri ham olib tashlanadi va to'liq ro'yxat qaytadi.
+  // Eslatma: bu effect sahifa ochilganda ham 1 marta ishlaydi (searchText boshida ""),
+  // shuning uchun sahifa ochilganda getProducts 2 marta chaqiriladi (zarari yo'q, lekin bilib qo'ying).
   useEffect(() => {
     if (searchText === "") {
       productSearch.search = "";
@@ -74,29 +100,42 @@ export default function Products() {
   }, [searchText]);
 
   /** HANDLERS */
+  // Handler = foydalanuvchi harakatiga (click, Enter, sahifa tanlash) javob beruvchi funksiya.
+  // Hammasi bir xil ishlaydi: productSearch ni o'zgartiradi -> EFFECT 1 backendga boradi.
+  //
+  // Nega `{ ...productSearch }`? React state o'zgarganini OBYEKT MANZILI (reference) o'zgarganidan biladi.
+  // `...` (spread) bilan YANGI obyekt yasaymiz, shunda React "o'zgardi" deb qayta render qiladi
+  // va useEffect([productSearch]) ishga tushadi. Bir xil obyektni bersak — hech narsa bo'lmaydi.
+  // (Toza variant: setProductSearch({ ...productSearch, page: 1 }) — eski obyektni o'zgartirmasdan.)
 
+  // Kategoriya tugmasi (Dish/Salad/...) — kategoriyani almashtiradi va 1-sahifaga qaytaradi
   const searchCollectionHandler = (collection: ProductCollection) => {
     productSearch.page = 1;
     productSearch.productCollection = collection;
     setProductSearch({ ...productSearch });
   };
 
+  // Saralash tugmasi (New/Price/Views) — order maydonini almashtiradi va 1-sahifaga qaytaradi
   const searchOrderHandler = (order: string) => {
     productSearch.page = 1;
     productSearch.order = order;
     setProductSearch({ ...productSearch });
   };
 
+  // Search tugmasi yoki Enter — input'dagi matnni so'rovga qo'shadi
   const searchProductHandler = () => {
     productSearch.search = searchText;
     setProductSearch({ ...productSearch });
   };
 
+  // Pagination — tanlangan sahifa raqamini (value) so'rovga yozadi
   const paginationHandler = (e: ChangeEvent<any>, value: number) => {
     productSearch.page = value;
     setProductSearch({ ...productSearch });
   };
 
+  // Kartaga bosilganda — o'sha mahsulot sahifasiga o'tadi: /products/<id>
+  // productsPage/index.tsx dagi ":productId" route'i ChosenProduct'ni ochadi.
   const chooseDishHandler = (id: string) => {
     history.push(`/products/${id}`);
   };
@@ -114,6 +153,7 @@ export default function Products() {
                 className={"single-search-input"}
                 name={"singleResearch"}
                 placeholder={"Type here"}
+                // "Controlled input": qiymat state'dan keladi, har harf state'ga yoziladi
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyDown={(e) => {
@@ -131,7 +171,7 @@ export default function Products() {
             </Stack>
           </Stack>
 
-          {/* SORT FILTERS */}
+          {/* SORT FILTERS — tanlangan tugma "primary" (to'q), qolganlari "secondary" (oltin) rangda */}
           <Stack className={"dishes-filter-section"}>
             <Stack className={"dishes-filter-box"}>
               <Button
@@ -287,7 +327,10 @@ export default function Products() {
             </Stack>
           </Stack>
 
-          {/* PAGINATION */}
+          {/* PAGINATION
+              Backend jami mahsulot sonini qaytarmaydi, shuning uchun "hiyla":
+              shu sahifada mahsulot bo'lsa — yana 1 ta sahifa bor deb ko'rsatamiz (page + 1),
+              bo'sh bo'lsa — oxirgi sahifa shu. */}
           <Stack className={"pagination-section"}>
             <Pagination
               count={
