@@ -41,6 +41,7 @@ import ProductService from "../../services/ProductServices";
 import { ProductCollection } from "../../../lib/enums/product_enum";
 import { serverApi } from "../../../lib/config";
 import { useHistory } from "react-router-dom";
+import { CartItem } from "../../../lib/types/search";
 
 /** REDUX SLICE & SELECTOR **/
 // YOZISH uchun: setProducts(data) -> dispatch(setProducts(data)) -> state.productsPage.products
@@ -53,7 +54,12 @@ const productRetriever = createSelector(retrieveProduct, (products) => ({
   products,
 }));
 
-export default function Products() {
+interface ProductsProps {
+  onAdd: (item: CartItem) => void;
+}
+
+export default function Products(props: ProductsProps) {
+  const { onAdd } = props;
   // ESKI qoldiq: endi sahifa raqami productSearch.page da saqlanadi, bu state ishlatilmaydi.
   const [page, setPage] = useState<number>(1);
 
@@ -292,7 +298,20 @@ export default function Products() {
                         sx={{ backgroundImage: `url(${imagePath})` }}
                       >
                         <div className={"product-sale"}> {sizeVolume}</div>
-                        <Button className={"shop-btn"}>
+                        <Button
+                          className={"shop-btn"}
+                          onClick={(e) => {
+                            console.log("Button Pressed !");
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0],
+                            });
+                            e.stopPropagation();
+                          }}
+                        >
                           <img src={"/icons/shopping-cart.svg"} alt={"cart"} />
                         </Button>
                         <Button className={"view-btn"}>

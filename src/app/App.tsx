@@ -15,7 +15,7 @@
  *   /             -> HomePage      (bosh sahifa)
  */
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link, Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage";
 import OrdersPage from "./screens/ordersPage";
@@ -30,22 +30,51 @@ import "../css/navbar.css";
 import "../css/footer.css";
 import HelpPage from "./screens/helpPage";
 import Test from "./screens/Test"; // faqat o'rganish uchun (class component misoli), ishlatilmayapti
+import { CartItem } from "../lib/types/search";
 
 function App() {
   // useLocation — hozirgi URL ma'lumotini beradi (pathname = "/products" kabi)
   const location = useLocation();
+  const cartJason: string | null = localStorage.getItem("cartData");
+  const currentCart = cartJason ? JSON.parse(cartJason) : [];
+
+  const [cartItems, setCartItems] = useState<CartItem[]>(currentCart);
+
+  /**Handlers */
+  const onAdd = (input: CartItem) => {
+    const exist: any = cartItems.find(
+      (item: CartItem) => item._id === input._id,
+    );
+    if (exist) {
+      const cartUpdate = cartItems.map((item: CartItem) =>
+        item._id === input._id
+          ? { ...exist, quantity: exist.quantity + 1 }
+          : item,
+      );
+      setCartItems(cartUpdate);
+      localStorage.setItem("cartData", JSON.stringify(cartUpdate));
+    } else {
+      const cartUpdate = [...cartItems, { ...input }];
+      setCartItems(cartUpdate);
+      localStorage.setItem("cartData", JSON.stringify(cartUpdate));
+    }
+  };
 
   return (
     <>
       {/* Bosh sahifada katta header'li navbar, qolganlarida oddiy navbar */}
-      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavBar />}
+      {location.pathname === "/" ? (
+        <HomeNavbar cartItems={cartItems} />
+      ) : (
+        <OtherNavBar cartItems={cartItems} />
+      )}
 
       {/* Switch — birinchi mos kelgan Route'ni render qiladi (tepadan pastga).
           Shuning uchun "/" ENG OXIRIDA turadi: aks holda "/" hamma URL ga mos kelib,
           doim HomePage chiqib qolar edi (react-router v5 da path prefix bo'yicha solishtiriladi). */}
       <Switch>
         <Route path="/products">
-          <ProductsPage />
+          <ProductsPage onAdd={onAdd} />
         </Route>
         <Route path="/orders">
           <OrdersPage />

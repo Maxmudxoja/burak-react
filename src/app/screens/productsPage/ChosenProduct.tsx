@@ -38,6 +38,7 @@ import MemberService from "../../services/MemberService";
 import { Member } from "../../../lib/types/member";
 import { useDispatch, useSelector } from "react-redux";
 import { serverApi } from "../../../lib/config";
+import { CartItem } from "../../../lib/types/search";
 
 /** REDUX SLICE & SELECTOR **/
 // YOZISH: ikkita setter (restoran va tanlangan mahsulot uchun)
@@ -61,7 +62,12 @@ const restaurantRetriever = createSelector(
   }),
 );
 
-export default function ChosenProduct() {
+interface ChoosenProductProps {
+  onAdd: (item: CartItem) => void;
+}
+
+export default function ChosenProduct(props: ChoosenProductProps) {
+  const { onAdd } = props;
   // useParams — URL'dagi o'zgaruvchi qismni oladi. Route path "/products/:productId" bo'lgani uchun
   // /products/abc123 da productId = "abc123" bo'ladi.
   const { productId } = useParams<{ productId: string }>();

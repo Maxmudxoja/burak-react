@@ -13,8 +13,14 @@ import { Button, Box, Container, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Basket from "./Basket";
+import { CartItem } from "../../../lib/types/search";
 
-export default function HomeNavbar() {
+interface HomeNavbarProps {
+  cartItems: CartItem[];
+}
+
+export default function HomeNavbar(props: HomeNavbarProps) {
+  const { cartItems } = props;
   const authMember = null;
 
   // --- O'RGANISH UCHUN DEMO (useState + useEffect lifecycle) ---
@@ -84,7 +90,7 @@ export default function HomeNavbar() {
               </NavLink>
             </Box>
 
-            <Basket />
+            <Basket cartItems={cartItems} />
 
             {!authMember ? (
               <Box>
