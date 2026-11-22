@@ -30,43 +30,34 @@ import "../css/navbar.css";
 import "../css/footer.css";
 import HelpPage from "./screens/helpPage";
 import Test from "./screens/Test"; // faqat o'rganish uchun (class component misoli), ishlatilmayapti
-import { CartItem } from "../lib/types/search";
+
+import useBasket from "./hooks/useBasket";
 
 function App() {
   // useLocation — hozirgi URL ma'lumotini beradi (pathname = "/products" kabi)
   const location = useLocation();
-  const cartJason: string | null = localStorage.getItem("cartData");
-  const currentCart = cartJason ? JSON.parse(cartJason) : [];
 
-  const [cartItems, setCartItems] = useState<CartItem[]>(currentCart);
-
-  /**Handlers */
-  const onAdd = (input: CartItem) => {
-    const exist: any = cartItems.find(
-      (item: CartItem) => item._id === input._id,
-    );
-    if (exist) {
-      const cartUpdate = cartItems.map((item: CartItem) =>
-        item._id === input._id
-          ? { ...exist, quantity: exist.quantity + 1 }
-          : item,
-      );
-      setCartItems(cartUpdate);
-      localStorage.setItem("cartData", JSON.stringify(cartUpdate));
-    } else {
-      const cartUpdate = [...cartItems, { ...input }];
-      setCartItems(cartUpdate);
-      localStorage.setItem("cartData", JSON.stringify(cartUpdate));
-    }
-  };
+  const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
 
   return (
     <>
       {/* Bosh sahifada katta header'li navbar, qolganlarida oddiy navbar */}
       {location.pathname === "/" ? (
-        <HomeNavbar cartItems={cartItems} />
+        <HomeNavbar
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
+          onDeleteAll={onDeleteAll}
+        />
       ) : (
-        <OtherNavBar cartItems={cartItems} />
+        <OtherNavBar
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          onDelete={onDelete}
+          onDeleteAll={onDeleteAll}
+        />
       )}
 
       {/* Switch — birinchi mos kelgan Route'ni render qiladi (tepadan pastga).
