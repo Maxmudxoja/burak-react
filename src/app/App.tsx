@@ -32,12 +32,21 @@ import HelpPage from "./screens/helpPage";
 import Test from "./screens/Test"; // faqat o'rganish uchun (class component misoli), ishlatilmayapti
 
 import useBasket from "./hooks/useBasket";
+import AuthenticationModal from "./components/auth";
 
 function App() {
   // useLocation — hozirgi URL ma'lumotini beradi (pathname = "/products" kabi)
   const location = useLocation();
 
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = useBasket();
+
+  const [signupOpen, setSignupOpen] = useState<boolean>(false);
+  const [loginOpen, setLoginOpen] = useState<boolean>(false);
+
+  /** Handlers */
+
+  const handleSignupClose = () => setSignupOpen(false);
+  const handleLoginClose = () => setLoginOpen(false);
 
   return (
     <>
@@ -83,6 +92,13 @@ function App() {
 
       {/* Footer — barcha sahifalar ostida */}
       <Footer />
+
+      <AuthenticationModal
+        signupOpen={signupOpen}
+        loginOpen={loginOpen}
+        handleLoginClose={handleLoginClose}
+        handleSignupClose={handleSignupClose}
+      />
     </>
   );
 }
