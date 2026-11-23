@@ -21,36 +21,46 @@ interface HomeNavbarProps {
   onRemove: (item: CartItem) => void;
   onDelete: (item: CartItem) => void;
   onDeleteAll: () => void;
+  setSignupOpen: (isOpen: boolean) => void;
+  setLoginOpen: (isOpen: boolean) => void;
 }
 
 export default function HomeNavbar(props: HomeNavbarProps) {
-  const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
+  const {
+    cartItems,
+    onAdd,
+    onRemove,
+    onDelete,
+    onDeleteAll,
+    setSignupOpen,
+    setLoginOpen,
+  } = props;
   const authMember = null;
 
-  // --- O'RGANISH UCHUN DEMO (useState + useEffect lifecycle) ---
-  // count — "{count} hours service" matnida ko'rinadi.
-  const [count, setCount] = useState<number>(0);
+  // // --- O'RGANISH UCHUN DEMO (useState + useEffect lifecycle) ---
+  // // count — "{count} hours service" matnida ko'rinadi.
+  // const [count, setCount] = useState<number>(0);
 
-  // value — SIGN UP bosilganda almashadi (true <-> false)
-  const [value, setvalue] = useState<boolean>(true);
+  // // value — SIGN UP bosilganda almashadi (true <-> false)
+  // const [value, setvalue] = useState<boolean>(true);
 
-  // useEffect [value] ga bog'langan: birinchi render'da VA har safar value o'zgarganda ishlaydi.
-  //  - ichki qism   = componentDidMount / componentDidUpdate
-  //  - return () => = cleanup, keyingi effect'dan oldin yoki komponent o'chganda (componentWillUnmount)
-  // Natija: SIGN UP har bosilganda count +1 bo'ladi.
-  useEffect(() => {
-    console.log("componentDidMount");
-    setCount(count + 1);
+  // // useEffect [value] ga bog'langan: birinchi render'da VA har safar value o'zgarganda ishlaydi.
+  // //  - ichki qism   = componentDidMount / componentDidUpdate
+  // //  - return () => = cleanup, keyingi effect'dan oldin yoki komponent o'chganda (componentWillUnmount)
+  // // Natija: SIGN UP har bosilganda count +1 bo'ladi.
+  // useEffect(() => {
+  //   console.log("componentDidMount");
+  //   setCount(count + 1);
 
-    return () => {
-      console.log("componentWillUnmount");
-    };
-  }, [value]);
+  //   return () => {
+  //     console.log("componentWillUnmount");
+  //   };
+  // }, [value]);
 
-  /**HANDLERS*/
-  const buttonHandler = () => {
-    setvalue(!value);
-  };
+  // /**HANDLERS*/
+  // const buttonHandler = () => {
+  //   setvalue(!value);
+  // };
 
   return (
     <div className="home-navbar">
@@ -104,7 +114,11 @@ export default function HomeNavbar(props: HomeNavbarProps) {
 
             {!authMember ? (
               <Box>
-                <Button variant="contained" className="login-button">
+                <Button
+                  variant="contained"
+                  className="login-button"
+                  onClick={() => setLoginOpen(true)}
+                >
                   Login
                 </Button>
               </Box>
@@ -123,13 +137,13 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               World's Most Delicious Cuisine
             </Box>
             <Box className={"wel-txt"}>The Choice, not just a choice</Box>
-            <Box className={"service-txt"}>{count} hours service</Box>
+            <Box className={"service-txt"}>24 hours service</Box>
             <Box className={"signup"}>
               {!authMember ? (
                 <Button
                   variant={"contained"}
                   className={"signup-button"}
-                  onClick={buttonHandler}
+                  onClick={() => setSignupOpen(true)}
                 >
                   SIGN UP
                 </Button>
