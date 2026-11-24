@@ -14,6 +14,7 @@ import "../../../css/order.css";
 import { Order, OrderInquiry } from "../../../lib/types/orders";
 import { OrderStatus } from "../../../lib/enums/order_enum";
 import OrderService from "../../services/OrderService";
+import { useGlobals } from "../../hooks/useGlobals";
 
 const actionDispatch = (dispatch: Dispatch) => ({
   setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
@@ -21,6 +22,7 @@ const actionDispatch = (dispatch: Dispatch) => ({
   setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
 });
 export default function OrdersPage() {
+  const { orderBuilder } = useGlobals();
   const [value, setValue] = useState("1");
 
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
@@ -48,7 +50,7 @@ export default function OrdersPage() {
       .getMyOrders({ ...orderinquiry, orderStatus: OrderStatus.FINISH })
       .then((data) => setFinishedOrders(data))
       .catch((err) => console.log(err));
-  }, [orderinquiry]);
+  }, [orderinquiry, orderBuilder]);
 
   /**Handlers */
 
@@ -77,8 +79,8 @@ export default function OrdersPage() {
               </Box>
             </Box>
             <Stack className={"order-main-content"}>
-              <PausedOrders />
-              <ProcessOrders />
+              <PausedOrders setValue={setValue} />
+              <ProcessOrders setValue={setValue} />
               <FinishedOrders />
             </Stack>
           </TabContext>

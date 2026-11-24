@@ -7,20 +7,80 @@ import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 
 import { Product } from "../../../lib/types/product";
-import { serverApi } from "../../../lib/config";
+import { Messages, serverApi } from "../../../lib/config";
 import { retrievePausedOrders } from "./selector";
-import { Order, OrderItem } from "../../../lib/types/orders";
+import { Order, OrderItem, OrderUpdateInput } from "../../../lib/types/orders";
+import { T } from "../../../lib/types/common";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { OrderStatus } from "../../../lib/enums/order_enum";
+import { useGlobals } from "../../hooks/useGlobals";
+import OrderService from "../../services/OrderService";
 
 /** REDUX SLICE & SELECTOR **/
 const pausedOrdersRetriever = createSelector(
   retrievePausedOrders,
   (pausedOrders) => ({ pausedOrders }),
 );
+interface PausedOrdersProps {
+  setValue: (input: string) => void;
+}
 
-/**Handlers */
-
-export default function PausedOrders() {
+export default function PausedOrders(props: PausedOrdersProps) {
+  const { setValue } = props;
   const { pausedOrders } = useSelector(pausedOrdersRetriever);
+  const { authMember, setOrderBuilder } = useGlobals();
+
+  /**Handlers */
+
+  const deleteOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.DELETE,
+      };
+
+      const confrimation = window.confirm("Do you want to delete the order ?");
+      if (confrimation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+        //Order Rebuild
+        setOrderBuilder(new Date());
+      }
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
+
+  const processOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+
+      //Payment Process
+      const orderId = e.target.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.PROCESS,
+      };
+
+      const confrimation = window.confirm(
+        "Do you want to proceed with payment ?",
+      );
+      if (confrimation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+        //=> proceess order
+        setValue("2");
+        setOrderBuilder(new Date());
+      }
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
+    }
+  };
   return (
     <TabPanel value={"1"}>
       <Stack>
@@ -76,13 +136,20 @@ export default function PausedOrders() {
                   <p>${order.orderTotal}</p>
                 </Box>
                 <Button
+                  value={order._id}
                   variant="contained"
                   color="secondary"
                   className={"cancel-button"}
+                  onClick={deleteOrderHandler}
                 >
                   Cancel
                 </Button>
-                <Button variant="contained" className={"pay-button"}>
+                <Button
+                  value={order._id}
+                  variant="contained"
+                  className={"pay-button"}
+                  onClick={processOrderHandler}
+                >
                   Payment
                 </Button>
               </Box>
