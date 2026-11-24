@@ -1,8 +1,3 @@
-/**
- * FinishedOrders — "FINISHED ORDERS" tabi (TabPanel value="3").
- * Yakunlangan buyurtmalar (tugmasiz, faqat ko'rish uchun).
- * Hozir [].map — bo'sh, shuning uchun `true && (...)` orqali "bo'sh ro'yxat" rasmi ko'rinadi.
- */
 import React from "react";
 import { Box, Stack } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";

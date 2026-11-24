@@ -1,17 +1,3 @@
-/**
- * ============================================================
- *  ordersPage/index.tsx — BUYURTMALAR SAHIFASI (/orders)
- * ============================================================
- * Chap tomonda 3 ta tab (OrderStatus enum'ga mos):
- *   "1" PAUSED  -> PausedOrders   (to'lanmagan, savatdan kelgan)
- *   "2" PROCESS -> ProcessOrders  (to'langan, tayyorlanmoqda)
- *   "3" FINISHED-> FinishedOrders (yakunlangan)
- * O'ng tomonda foydalanuvchi ma'lumoti va karta (to'lov) formasi.
- *
- * Tab mexanizmi: `value` state'i qaysi tab tanlanganini saqlaydi. TabContext uni
- * ichidagi TabPanel'larga uzatadi; TabPanel faqat o'z value'si mos kelsa ko'rinadi.
- * HOZIRCHA STATIK (namuna ma'lumotlar).
- */
 import { useState, SyntheticEvent } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
@@ -33,7 +19,6 @@ const actionDispatch = (dispatch: Dispatch) => ({
   setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
 });
 export default function OrdersPage() {
-  // Tanlangan tab ("1" | "2" | "3"). Boshida PAUSED ORDERS ochiq.
   const [value, setValue] = useState("1");
 
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =

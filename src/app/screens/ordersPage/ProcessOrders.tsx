@@ -1,8 +1,3 @@
-/**
- * ProcessOrders — "PROCESS ORDERS" tabi (TabPanel value="2").
- * To'langan, jarayondagi buyurtmalar: sana va "Verify to fulfil" (yetkazildi deb tasdiqlash) tugmasi.
- * HOZIRCHA STATIK namuna ma'lumotlar.
- */
 import React from "react";
 import { Box, Stack } from "@mui/material";
 import Button from "@mui/material/Button";

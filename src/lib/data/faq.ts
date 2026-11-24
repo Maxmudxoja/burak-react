@@ -1,4 +1,3 @@
-// faq.ts — HelpPage "FAQ" tabidagi savol-javoblar (statik ma'lumot).
 export const faq = [
 	{
 		question: 'How to make order?',

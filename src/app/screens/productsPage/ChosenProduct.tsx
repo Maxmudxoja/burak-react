@@ -1,19 +1,3 @@
-/**
- * ============================================================
- *  ChosenProduct.tsx — BITTA MAHSULOT SAHIFASI (/products/:productId)
- * ============================================================
- * Chapda rasmlar slider (Swiper), o'ngda nomi, restoran, reyting, ko'rishlar, tavsif, narx.
- *
- * OQIM:
- *   Products'da kartaga bosiladi -> history.push("/products/65ab...")
- *        ▼
- *   useParams() URL'dan productId = "65ab..." ni oladi
- *        ▼  useEffect
- *   ProductService.getProduct(productId)  -> setChosenProduct -> state.productsPage.chosenProduct
- *   MemberService.getRestaurant()         -> setRestaurant    -> state.productsPage.restaurant
- *        ▼  useSelector
- *   ekranga chiziladi
- */
 import React, { useEffect } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -41,13 +25,11 @@ import { serverApi } from "../../../lib/config";
 import { CartItem } from "../../../lib/types/search";
 
 /** REDUX SLICE & SELECTOR **/
-// YOZISH: ikkita setter (restoran va tanlangan mahsulot uchun)
 const actionDispatch = (dispatch: Dispatch) => ({
   setRestaurant: (data: Member) => dispatch(setRestaurant(data)),
   setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
 });
 
-// O'QISH: har bir ma'lumot uchun alohida retriever
 const chosendProductRetriever = createSelector(
   retrieveChosenProduct,
   (chosenProduct) => ({
@@ -68,17 +50,11 @@ interface ChoosenProductProps {
 
 export default function ChosenProduct(props: ChoosenProductProps) {
   const { onAdd } = props;
-  // useParams — URL'dagi o'zgaruvchi qismni oladi. Route path "/products/:productId" bo'lgani uchun
-  // /products/abc123 da productId = "abc123" bo'ladi.
   const { productId } = useParams<{ productId: string }>();
   const { setRestaurant, setChosenProduct } = actionDispatch(useDispatch());
   const { chosenProduct } = useSelector(chosendProductRetriever);
   const { restaurant } = useSelector(restaurantRetriever);
 
-  // Sahifa ochilganda 1 marta: mahsulot va restoran ma'lumotini backenddan olamiz.
-  // Eslatma: dependency [] bo'lgani uchun, agar shu sahifadan to'g'ridan-to'g'ri boshqa
-  // mahsulotga o'tilsa (komponent qayta yaratilmasa), yangi mahsulot yuklanmaydi.
-  // Buni tuzatish uchun [productId] qilish kerak bo'ladi.
   useEffect(() => {
     const product = new ProductService();
     product
@@ -93,8 +69,6 @@ export default function ChosenProduct(props: ChoosenProductProps) {
       .catch((err) => console.log(err));
   }, []);
 
-  // Backend javob bermaguncha chosenProduct = null. Bo'sh sahifa chiqarib, xatoning oldini olamiz.
-  // `chosenProduct?.x` (optional chaining) — "agar null bo'lmasa x ni ol, bo'lsa undefined qaytar".
   if (!chosenProduct) return null;
   return (
     <div className={"chosen-product"}>

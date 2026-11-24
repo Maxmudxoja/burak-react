@@ -1,8 +1,3 @@
-/**
- * MaterialTheme — MUI uchun global dizayn sozlamalari (index.tsx da ThemeProvider'ga beriladi).
- * primary (#343434 to'q kulrang) va secondary (#d7b586 oltin) — <Button color="primary|secondary"> ranglari.
- * components — MUI komponentlarining default stillarini o'zgartirish (Container max 1300px va h.k.).
- */
 import { createTheme } from '@mui/material/styles';
 import { common } from '@mui/material/colors';
 import shadow from './shadow';

@@ -1,4 +1,3 @@
-// styled.ts — maxsus stillangan MUI komponentlar. RippleBadge — "online" belgisi uchun to'lqinli animatsiyali badge.
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 

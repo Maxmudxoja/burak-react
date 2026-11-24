@@ -1,10 +1,4 @@
 // @ts-nocheck
-/**
- * Test.tsx — FAQAT O'RGANISH UCHUN: eski uslubdagi CLASS component misoli.
- * App.tsx da import qilingan, lekin hech qayerda ko'rsatilmaydi.
- * Solishtirish:  this.state / this.setState   <->  useState
- *                componentDidMount / WillUnmount <->  useEffect(() => {...; return cleanup}, [])
- */
 
 import React, { Component } from "react";
 

@@ -1,8 +1,3 @@
-/**
- * Footer — barcha sahifalar ostidagi pastki qism (App.tsx da Switch'dan keyin turadi).
- * Logo, tavsif, ijtimoiy tarmoq ikonkalari, sahifa linklari va aloqa ma'lumotlari.
- * Footers — styled-components bilan yozilgan konteyner (CSS to'g'ridan-to'g'ri JS ichida).
- */
 import React from "react";
 import { Box, Container, Stack } from "@mui/material";
 import { Link } from "react-router-dom";

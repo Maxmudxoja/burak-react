@@ -1,4 +1,3 @@
-// Ovqat porsiyasi o'lchami.
 export enum ProductSize {
   SMALL = "SMALL",
   NORMAL = "NORMAL",
@@ -6,7 +5,6 @@ export enum ProductSize {
   SET = "SET",
 }
 
-// Ichimliklar hajmi (litrda).
 export enum ProductVolume {
   HALF = 0.5,
   ONE = 1,
@@ -15,14 +13,12 @@ export enum ProductVolume {
   TWO = 2,
 }
 
-// Mahsulot holati: PAUSE = sotuvda emas (default), PROCESS = sotuvda (SPA'da faqat shular ko'rinadi), DELETE = o'chirilgan.
 export enum ProductStatus {
   PAUSE = "PAUSE",
   PROCESS = "PROCESS",
   DELETE = "DELETE",
 }
 
-// Mahsulot kategoriyasi (menyu bo'limlari).
 export enum ProductCollection {
   DISH = "DISH",
   SALAD = "SALAD",

@@ -1,13 +1,3 @@
-/**
- * ============================================================
- *  helpPage/index.tsx — YORDAM SAHIFASI (/help)
- * ============================================================
- * 3 ta tab:
- *   "1" TERMS   -> lib/data/terms.ts dagi qoidalar ro'yxati
- *   "2" FAQ     -> lib/data/faq.ts dagi savol-javoblar (Accordion — bosilganda ochiladi)
- *   "3" CONTACT -> admin'ga xabar yuborish formasi (hozircha hech qayerga yubormaydi)
- * Tab mexanizmi OrdersPage bilan bir xil: value state + TabContext + TabPanel.
- */
 import React from "react";
 import { Box, Container, Stack, Tabs } from "@mui/material";
 import Typography from "@mui/material/Typography";
