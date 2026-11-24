@@ -10,15 +10,12 @@ export interface OrderItemInput {
 
 export interface OrderItem {
   _id: string;
-  itemQuntity: number;
+  itemQuantity: number;
   itemPrice: number;
   orderId: string;
   productId: string;
   createdAt: Date;
   updatedAt: Date;
-
-  orderItems: OrderItem[];
-  productData: Product[];
 }
 
 export interface Order {
@@ -29,6 +26,8 @@ export interface Order {
   memberId: string;
   createdAt: Date;
   updatedAt: Date;
+  orderItems: OrderItem[];
+  productData: Product[];
 }
 
 export interface OrderInquiry {
