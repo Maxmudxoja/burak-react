@@ -18,6 +18,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useHistory } from "react-router-dom";
 import { CartItem } from "../../../lib/types/search";
 import { serverApi } from "../../../lib/config";
+import { sweetErrorHandling } from "../../../lib/sweetAlert";
 
 interface BasketProps {
   cartItems: CartItem[];

@@ -24,6 +24,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./app/MaterialTheme";
 import "./css/index.css"; // global CSS (butun sayt uchun)
 import { BrowserRouter as Router } from "react-router-dom";
+import ContextProvider from "./app/context/ContextProvider";
 
 // index.html dagi <div id="root"> ni topamiz. "!" — TypeScript'ga "bu null emas" deymiz.
 const container = document.getElementById("root")!;
@@ -34,14 +35,16 @@ root.render(
   <React.StrictMode>
     {/* Redux store — global state shu yerdan butun ilovaga tarqaladi */}
     <Provider store={store}>
-      {/* MUI theme — MaterialTheme/index.ts dagi ranglar */}
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {/* Router — App ichida useLocation, Route, NavLink ishlashi uchun shart */}
-        <Router>
-          <App />
-        </Router>
-      </ThemeProvider>
+      <ContextProvider>
+        {/* MUI theme — MaterialTheme/index.ts dagi ranglar */}
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {/* Router — App ichida useLocation, Route, NavLink ishlashi uchun shart */}
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </ContextProvider>
     </Provider>
   </React.StrictMode>,
 );
