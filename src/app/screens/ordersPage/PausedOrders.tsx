@@ -17,6 +17,8 @@ const pausedOrdersRetriever = createSelector(
   (pausedOrders) => ({ pausedOrders }),
 );
 
+/**Handlers */
+
 export default function PausedOrders() {
   const { pausedOrders } = useSelector(pausedOrdersRetriever);
   return (
